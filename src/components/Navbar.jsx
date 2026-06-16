@@ -64,7 +64,7 @@ const Navbar = ({ setSearch }) => {
                 initial={{ y: -80, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                className="fixed left-0 top-0 z-50 flex h-[70px] w-full items-center justify-between px-4 md:px-8 text-white backdrop-blur-sm"
+                className="fixed left-1/2 top-3 z-50 flex h-[70px] w-[95%] -translate-x-1/2 items-center md:gap-6rounded-2xl border border-white/10 bg-black/60 px-6 md:px-10 text-white backdrop-blur-xl"
             >
                 <button
                     onClick={() => setMobileMenu(!mobileMenu)}
@@ -76,7 +76,7 @@ const Navbar = ({ setSearch }) => {
                 <Link
                     to="/"
                     onClick={() => setSearch("")}
-                    className="text-2xl font-extrabold tracking-tight"
+                    className="shrink-0 text-2xl font-extrabold tracking-tight"
                 >
                     MovieMax
                 </Link>
@@ -111,7 +111,7 @@ const Navbar = ({ setSearch }) => {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                            className="w-24 sm:w-36 md:w-44 bg-transparent px-3 py-2 text-sm text-white outline-none"
+                            className="w-28 sm:w-40 md:w-44 bg-transparent px-3 py-2 text-sm text-white outline-none"
                         />
 
                         <motion.button
@@ -213,7 +213,7 @@ const Navbar = ({ setSearch }) => {
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="fixed left-0 top-[70px] z-40 w-full bg-zinc-900 p-5 text-white md:hidden"
+                    className="fixed left-0 top-[85px] z-40 w-full bg-zinc-900 p-5 text-white md:hidden"
                 >
                     <div className="flex flex-col gap-4">
                         {["Drama", "Action", "Comedy", "Horror", "Sci-Fi"].map((item) => (
