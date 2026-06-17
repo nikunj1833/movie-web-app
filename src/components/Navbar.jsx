@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import AuthModal from "./AuthModal";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Navbar = ({ setSearch }) => {
     const [input, setInput] = useState("");
@@ -13,6 +13,8 @@ const Navbar = ({ setSearch }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [showProfile, setShowProfile] = useState(false);
     const [mobileMenu, setMobileMenu] = useState(false);
+    const [authLoading, setAuthLoading] = useState(false);
+    const [loadingText, setLoadingText] = useState("");
 
     const API_KEY = "1a084661";
 
@@ -72,10 +74,20 @@ const Navbar = ({ setSearch }) => {
                         <Link
                             to="/"
                             onClick={() => setSearch("")}
-                            className="text-xl font-extrabold tracking-tight md:text-2xl"
+                            className="group"
                         >
-                            MovieMax
+                            <div className="transition-all duration-700 ease-out group-hover:scale-110">
+                                <h1 className="text-3xl font-black tracking-[3px] md:text-4xl text-red-500 drop-shadow-[0_0_15px_rgba(220,38,38,0.8)] transition-all duration-500 group-hover:text-white">
+                                    MOVIEMAX
+                                </h1>
+
+                                <p className="text-[9px] uppercase tracking-[5px] text-white transition-all duration-500 group-hover:text-red-500">
+                                    CINEMA EXPERIENCE
+                                </p>
+                            </div>
                         </Link>
+
+
                     </div>
 
                     <nav className="hidden gap-8 text-sm font-semibold md:flex">
@@ -166,6 +178,8 @@ const Navbar = ({ setSearch }) => {
                                     : "👤"}
                             </motion.button>
 
+
+
                             {showProfile && currentUser && (
                                 <motion.div
                                     initial={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -189,10 +203,13 @@ const Navbar = ({ setSearch }) => {
                                     </button>
                                 </motion.div>
                             )}
+
+
                         </div>
                     </div>
                 </div>
             </motion.header>
+
 
             {mobileMenu && (
                 <motion.div

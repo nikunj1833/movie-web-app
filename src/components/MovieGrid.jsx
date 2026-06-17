@@ -14,9 +14,12 @@ const MovieGrid = ({ search }) => {
     setFavorites(saved);
   }, []);
 
+
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
+
+      const startTime = Date.now();
 
       try {
         const res = await fetch(
@@ -24,6 +27,7 @@ const MovieGrid = ({ search }) => {
         );
 
         const data = await res.json();
+        console.log(data);
 
         if (data.Response === "True") {
           setMovies(data.Search);
@@ -35,14 +39,24 @@ const MovieGrid = ({ search }) => {
         setMovies([]);
       }
 
+      const elapsed = Date.now() - startTime;
+
+      if (elapsed < 1500) {
+        await new Promise((resolve) =>
+          setTimeout(resolve, 1500 - elapsed)
+        );
+      }
+
       setLoading(false);
     };
 
-    fetchMovies();
+    fetchMovies(); // 
+
   }, [search]);
 
   const toggleFavorite = (movie) => {
     let saved = JSON.parse(localStorage.getItem("myList")) || [];
+
 
     const exists = saved.some((item) => item.imdbID === movie.imdbID);
 
@@ -60,32 +74,80 @@ const MovieGrid = ({ search }) => {
 
     localStorage.setItem("myList", JSON.stringify(saved));
     setFavorites(saved);
+
+
   };
 
   const isFavorite = (id) => {
     return favorites.some((item) => item.imdbID === id);
   };
 
-  return (
-    <section className="min-h-screen bg-gradient-to-b from-black via-zinc-950 to-black px-4 pt-24 text-white sm:px-6 md:px-10 lg:px-20">
+  return (<section className="min-h-screen bg-gradient-to-b from-black via-zinc-950 to-black px-4 pt-24 text-white sm:px-6 md:px-10 lg:px-20">
+    <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
       <motion.h1
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mb-6 text-2xl font-bold sm:text-3xl"
+        className="text-2xl font-bold sm:text-3xl"
       >
         Results for:
-        <span className="ml-2 break-words text-purple-500">{search}</span>
+        <span className="ml-2 text-purple-500">
+          {search}
+        </span>
       </motion.h1>
 
-      {loading && (
-        <p className="text-center text-gray-400">Loading Movies...</p>
-      )}
+      <button
+        onClick={() => window.location.reload()}
+        className="rounded-full border border-purple-500/30 px-5 py-2 font-semibold text-purple-400 transition-all hover:bg-purple-600 hover:text-white"
+      >
+        ← Back Home
+      </button>
 
-      {!loading && movies.length === 0 && (
-        <p className="text-center text-gray-400">No movies found</p>
-      )}
+    </div>
 
+    {loading && (
+      <div
+        className="
+        grid
+        grid-cols-2
+        gap-4
+        sm:grid-cols-2
+        md:grid-cols-3
+        lg:grid-cols-4
+        xl:grid-cols-5
+        2xl:grid-cols-6
+      "
+      >
+        {[...Array(12)].map((_, index) => (
+          <div
+            key={index}
+            className="overflow-hidden rounded-2xl bg-zinc-900"
+          >
+            <div className="relative h-[240px] overflow-hidden rounded-2xl bg-zinc-800 sm:h-[280px] md:h-[320px]">
+
+              <div className="absolute inset-0 animate-pulse bg-zinc-800"></div>
+
+              <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+            </div>
+
+            <div className="space-y-3 p-3">
+              <div className="h-4 w-3/4 animate-pulse rounded bg-zinc-800" />
+              <div className="h-3 w-1/2 animate-pulse rounded bg-zinc-800" />
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {!loading && movies.length === 0 && (
+      <p className="text-center text-gray-400">
+        No movies found
+      </p>
+    )}
+
+    {!loading && (
       <motion.div
         initial="hidden"
         animate="visible"
@@ -97,15 +159,15 @@ const MovieGrid = ({ search }) => {
           },
         }}
         className="
-          grid
-          grid-cols-2
-          gap-4
-          sm:grid-cols-2
-          md:grid-cols-3
-          lg:grid-cols-4
-          xl:grid-cols-5
-          2xl:grid-cols-6
-        "
+        grid
+        grid-cols-2
+        gap-4
+        sm:grid-cols-2
+        md:grid-cols-3
+        lg:grid-cols-4
+        xl:grid-cols-5
+        2xl:grid-cols-6
+      "
       >
         {movies.map((movie) => (
           <motion.div
@@ -144,16 +206,15 @@ const MovieGrid = ({ search }) => {
                 }
                 alt={movie.Title}
                 className="
-                  h-[240px]
-                  w-full
-                  object-cover
-                  transition
-                  duration-700
-                  group-hover:scale-110
-
-                  sm:h-[280px]
-                  md:h-[320px]
-                "
+                h-[240px]
+                w-full
+                object-cover
+                transition
+                duration-700
+                group-hover:scale-110
+                sm:h-[280px]
+                md:h-[320px]
+              "
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-100">
@@ -181,7 +242,10 @@ const MovieGrid = ({ search }) => {
           </motion.div>
         ))}
       </motion.div>
-    </section>
+    )}
+  </section>
+
+
   );
 };
 
