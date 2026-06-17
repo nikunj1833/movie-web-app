@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { auth } from "../firebase";
 import AuthModal from "./AuthModal";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth"; // ✅ FIXED
 
 const Navbar = ({ setSearch }) => {
     const [input, setInput] = useState("");
@@ -33,7 +32,7 @@ const Navbar = ({ setSearch }) => {
     };
 
     const handleLogout = async () => {
-        await signOut(auth);
+        await signOut(auth); // ✅ NOW WORKS
         setShowProfile(false);
     };
 
@@ -86,8 +85,6 @@ const Navbar = ({ setSearch }) => {
                                 </p>
                             </div>
                         </Link>
-
-
                     </div>
 
                     <nav className="hidden gap-8 text-sm font-semibold md:flex">
@@ -178,8 +175,6 @@ const Navbar = ({ setSearch }) => {
                                     : "👤"}
                             </motion.button>
 
-
-
                             {showProfile && currentUser && (
                                 <motion.div
                                     initial={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -188,6 +183,7 @@ const Navbar = ({ setSearch }) => {
                                 >
                                     <h3 className="font-bold">{currentUser.displayName || "User"}</h3>
                                     <p className="mt-1 break-all text-xs text-gray-400">{currentUser.email}</p>
+
                                     <Link
                                         to="/my-list"
                                         onClick={() => setShowProfile(false)}
@@ -195,6 +191,7 @@ const Navbar = ({ setSearch }) => {
                                     >
                                         ❤️ My List
                                     </Link>
+
                                     <button
                                         onClick={handleLogout}
                                         className="mt-3 w-full rounded-xl bg-red-600 px-4 py-2 text-sm font-bold hover:bg-red-700"
@@ -203,13 +200,10 @@ const Navbar = ({ setSearch }) => {
                                     </button>
                                 </motion.div>
                             )}
-
-
                         </div>
                     </div>
                 </div>
             </motion.header>
-
 
             {mobileMenu && (
                 <motion.div
