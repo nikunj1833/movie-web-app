@@ -90,11 +90,11 @@ const MovieDetails = () => {
                                 : "https://placehold.co/300x450?text=No+Image"
                         }
                         alt={movie.Title}
-                        className="rounded-3xl shadow-2xl shadow-purple-500/30"
+                        className="rounded-3xl shadow-2xl shadow-red-500500/30"
                     />
 
                     <div>
-                        <p className="mb-3 text-sm font-bold uppercase tracking-[4px] text-purple-400">
+                        <p className="mb-3 text-sm font-bold uppercase tracking-[4px] text-red-500400">
                             Movie Details
                         </p>
 
@@ -203,7 +203,7 @@ const MovieDetails = () => {
                             <button
                                 onClick={handleMyList}
                                 className={`rounded-full px-8 py-3 font-bold transition ${isSaved
-                                    ? "bg-purple-600 text-white hover:bg-purple-700"
+                                    ? "bg-red-500600 text-white hover:bg-red-500700"
                                     : "border border-white/40 text-white backdrop-blur-md hover:bg-white hover:text-black"
                                     }`}
                             >
@@ -231,7 +231,7 @@ const MovieDetails = () => {
                             </p>
                         </div>
 
-                        <div className="mb-6 flex h-64 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-red-600/30 via-black to-purple-700/30">
+                        <div className="mb-6 flex h-64 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-red-600/30 via-black to-red-500700/30">
                             <div className="text-center">
                                 <div className="mb-4 text-6xl">▶</div>
                                 <p className="text-gray-300">Trailer preview modal</p>

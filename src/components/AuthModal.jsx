@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../firebase";
+
+import { auth, googleProvider } from "../firebase";
 
 const AuthModal = ({ setShowAuth }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -72,6 +75,32 @@ const AuthModal = ({ setShowAuth }) => {
     setLoading(false);
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(
+        auth,
+        googleProvider
+      );
+
+      setLoadingText(
+        `Welcome ${result.user.displayName || "Back"} 👋`
+      );
+
+      setAuthLoading(true);
+
+      setTimeout(() => {
+        setAuthLoading(false);
+        setShowAuth(false);
+      }, 2500);
+
+    } catch (error) {
+      console.log(error);
+      setAuthLoading(false);
+      setErrorMsg(error.message);
+    }
+  };
+
+
   return (
     <>
       {authLoading && (
@@ -97,7 +126,7 @@ const AuthModal = ({ setShowAuth }) => {
           initial={{ opacity: 0, scale: 0.8, y: 40 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.35 }}
-          className="relative w-full max-w-md rounded-3xl border border-white/10 bg-zinc-950 p-8 text-white shadow-2xl shadow-purple-500/20"
+          className="relative w-full max-w-md rounded-3xl border border-white/10 bg-zinc-950 p-8 text-white shadow-2xl shadow-red-500/20"
         >
           <button
             onClick={() => setShowAuth(false)}
@@ -149,6 +178,29 @@ const AuthModal = ({ setShowAuth }) => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
+
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-white py-3 font-bold text-black transition-all duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                alt="Google"
+                className="h-5 w-5"
+              />
+
+              {isLogin
+                ? "Login with Google"
+                : "Sign Up with Google"}
+            </button>
+
+            <div className="my-5 flex items-center gap-3">
+              <div className="h-px flex-1 bg-white/10"></div>
+              <span className="text-xs text-zinc-500">OR</span>
+              <div className="h-px flex-1 bg-white/10"></div>
+            </div>
+
             {!isLogin && (
               <input
                 type="text"
@@ -187,7 +239,7 @@ const AuthModal = ({ setShowAuth }) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-2xl bg-purple-600 py-3 font-bold text-white hover:bg-purple-700"
+              className="w-full rounded-2xl bg-red-600 py-3 font-bold text-white hover:bg-red-700"
             >
               {loading
                 ? "Please wait..."
@@ -195,6 +247,7 @@ const AuthModal = ({ setShowAuth }) => {
                   ? "Login"
                   : "Create Account"}
             </button>
+
           </form>
         </motion.div>
       </div>

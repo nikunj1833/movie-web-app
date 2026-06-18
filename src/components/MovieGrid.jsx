@@ -92,14 +92,14 @@ const MovieGrid = ({ search }) => {
         className="text-2xl font-bold sm:text-3xl"
       >
         Results for:
-        <span className="ml-2 text-purple-500">
+        <span className="ml-2 text-red-500500">
           {search}
         </span>
       </motion.h1>
 
       <button
         onClick={() => window.location.reload()}
-        className="rounded-full border border-purple-500/30 px-5 py-2 font-semibold text-purple-400 transition-all hover:bg-purple-600 hover:text-white"
+        className="rounded-full border border-red-500500/30 px-5 py-2 font-semibold text-red-500400 transition-all hover:bg-red-500600 hover:text-white"
       >
         ← Back Home
       </button>
@@ -186,7 +186,7 @@ const MovieGrid = ({ search }) => {
           >
             <Link
               to={`/movie/${movie.imdbID}`}
-              className="group relative block overflow-hidden rounded-2xl bg-zinc-900 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-purple-500/40"
+              className="group relative block overflow-hidden rounded-2xl bg-zinc-900 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-red-500500/40"
             >
               <button
                 onClick={(e) => {
@@ -224,7 +224,7 @@ const MovieGrid = ({ search }) => {
                   </h2>
 
                   <div className="mt-2 flex flex-wrap gap-2">
-                    <span className="rounded-full bg-purple-600 px-2 py-1 text-[10px] font-semibold">
+                    <span className="rounded-full bg-red-500600 px-2 py-1 text-[10px] font-semibold">
                       {movie.Year}
                     </span>
 

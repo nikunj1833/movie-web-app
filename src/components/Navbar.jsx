@@ -61,11 +61,11 @@ const Navbar = ({ setSearch }) => {
                 transition={{ duration: 0.7, ease: "easeOut" }}
                 className="fixed left-0 top-0 z-50 w-full px-4 py-4 text-white backdrop-blur-lg md:px-8"
             >
-                <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 md:flex-nowrap md:gap-8">
+                <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 md:gap-8">
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => setMobileMenu(!mobileMenu)}
-                            className="text-2xl md:hidden"
+                            className="block text-3xl font-bold text-white hover:text-red-500 transition-all duration-300 md:hidden"
                         >
                             ☰
                         </button>
@@ -76,7 +76,7 @@ const Navbar = ({ setSearch }) => {
                             className="group"
                         >
                             <div className="transition-all duration-700 ease-out group-hover:scale-110">
-                                <h1 className="text-3xl font-black tracking-[3px] md:text-4xl text-red-500 drop-shadow-[0_0_15px_rgba(220,38,38,0.8)] transition-all duration-500 group-hover:text-white">
+                                <h1 className="text-xl font-black tracking-[2px] sm:text-2xl md:text-4xl text-red-500 drop-shadow-[0_0_15px_rgba(220,38,38,0.8)] transition-all duration-500 group-hover:text-white">
                                     MOVIEMAX
                                 </h1>
 
@@ -94,17 +94,13 @@ const Navbar = ({ setSearch }) => {
                                 whileHover={{ y: -2, scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setSearch(item.toLowerCase())}
-                                className="transition hover:text-purple-400"
+                                className="transition hover:text-red-500"
                             >
                                 {item}
                             </motion.button>
                         ))}
 
-                        <motion.div whileHover={{ y: -2, scale: 1.05 }}>
-                            <Link to="/my-list" className="hover:text-purple-400">
-                                ❤️ My List
-                            </Link>
-                        </motion.div>
+                       
                     </nav>
 
                     <div className="flex items-center gap-3">
@@ -119,14 +115,16 @@ const Navbar = ({ setSearch }) => {
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                                    className="w-28 bg-transparent px-3 py-2 text-sm text-white placeholder:text-white/70 outline-none sm:w-40 md:w-56"
+                                    className="w-20 sm:w-32 md:w-56 bg-transparent px-2 py-2 text-xs sm:text-sm text-white placeholder:text-white/70 outline-none"
                                 />
+
                                 <motion.button
                                     whileTap={{ scale: 0.92 }}
                                     onClick={handleSearch}
-                                    className="rounded-full bg-white px-4 py-2 text-sm font-bold text-black"
+                                    className="rounded-full bg-white px-3 py-2 text-sm font-bold text-black"
                                 >
-                                    Search
+                                    <span className="hidden sm:block">Search</span>
+                                    <span className="sm:hidden">🔍</span>
                                 </motion.button>
                             </motion.div>
 
@@ -148,13 +146,22 @@ const Navbar = ({ setSearch }) => {
                                             className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-white/10"
                                         >
                                             <img
-                                                src={movie.Poster !== "N/A" ? movie.Poster : "https://placehold.co/80x100?text=No+Image"}
+                                                src={
+                                                    movie.Poster !== "N/A"
+                                                        ? movie.Poster
+                                                        : "https://placehold.co/80x100?text=No+Image"
+                                                }
                                                 alt={movie.Title}
                                                 className="h-14 w-10 rounded object-cover"
                                             />
+
                                             <div>
-                                                <h4 className="line-clamp-1 text-sm font-bold">{movie.Title}</h4>
-                                                <p className="text-xs text-gray-400">{movie.Year}</p>
+                                                <h4 className="line-clamp-1 text-sm font-bold">
+                                                    {movie.Title}
+                                                </h4>
+                                                <p className="text-xs text-gray-400">
+                                                    {movie.Year}
+                                                </p>
                                             </div>
                                         </button>
                                     ))}
@@ -166,7 +173,11 @@ const Navbar = ({ setSearch }) => {
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
-                                onClick={() => currentUser ? setShowProfile(!showProfile) : setShowAuth(true)}
+                                onClick={() =>
+                                    currentUser
+                                        ? setShowProfile(!showProfile)
+                                        : setShowAuth(true)
+                                }
                                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-sm font-bold backdrop-blur-md"
                             >
                                 {currentUser
@@ -181,8 +192,13 @@ const Navbar = ({ setSearch }) => {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     className="absolute right-0 top-14 w-64 rounded-2xl bg-black/80 p-4 shadow-2xl backdrop-blur-xl"
                                 >
-                                    <h3 className="font-bold">{currentUser.displayName || "User"}</h3>
-                                    <p className="mt-1 break-all text-xs text-gray-400">{currentUser.email}</p>
+                                    <h3 className="font-bold">
+                                        {currentUser.displayName || "User"}
+                                    </h3>
+
+                                    <p className="mt-1 break-all text-xs text-gray-400">
+                                        {currentUser.email}
+                                    </p>
 
                                     <Link
                                         to="/my-list"
@@ -201,6 +217,7 @@ const Navbar = ({ setSearch }) => {
                                 </motion.div>
                             )}
                         </div>
+
                     </div>
                 </div>
             </motion.header>

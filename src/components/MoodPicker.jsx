@@ -50,7 +50,7 @@ const MoodPicker = () => {
               onClick={() => handleMood(mood)}
               className={`rounded-full px-5 py-3 font-bold transition hover:scale-105 ${
                 activeMood === mood.name
-                  ? "bg-purple-600 text-white"
+                  ? "bg-red-500600 text-white"
                   : "bg-white/10 text-white hover:bg-white hover:text-black"
               }`}
             >
@@ -64,7 +64,7 @@ const MoodPicker = () => {
         {activeMood && !loading && (
           <h3 className="mb-5 text-xl font-bold">
             Recommended for{" "}
-            <span className="text-purple-400">{activeMood}</span>
+            <span className="text-red-500400">{activeMood}</span>
           </h3>
         )}
 
