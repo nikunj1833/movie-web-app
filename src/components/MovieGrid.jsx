@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { auth } from "../firebase";
+import AuthModal from "./AuthModal";
 
 const MovieGrid = ({ search }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [showAuth, setShowAuth] = useState(false);
 
   const API_KEY = "1a084661";
 
@@ -55,6 +58,10 @@ const MovieGrid = ({ search }) => {
   }, [search]);
 
   const toggleFavorite = (movie) => {
+    if (!auth.currentUser) {
+      setShowAuth(true);
+      return;
+    }
     let saved = JSON.parse(localStorage.getItem("myList")) || [];
 
 
@@ -243,7 +250,14 @@ const MovieGrid = ({ search }) => {
         ))}
       </motion.div>
     )}
+
+    {
+      showAuth && (
+        <AuthModal setShowAuth={setShowAuth} />
+      )
+    }
   </section>
+
 
 
   );

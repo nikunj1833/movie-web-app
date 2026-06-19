@@ -1,4 +1,11 @@
 import { Link } from "react-router-dom";
+import {
+    FaInstagram,
+    FaYoutube,
+    FaFacebookF,
+} from "react-icons/fa";
+
+import { FaXTwitter } from "react-icons/fa6";
 
 function Footer() {
     return (<footer className="relative mt-16 overflow-hidden border-t border-white/10 bg-black text-white">
@@ -11,9 +18,11 @@ function Footer() {
             <div className="grid gap-8 text-center md:grid-cols-4 md:text-left">
 
                 <div>
-                    <h2 className="text-3xl font-black tracking-[2px]">
-                        Movie<span className="text-red-500">Max</span>
-                    </h2>
+                    <Link to="/">
+                        <h2 className="text-3xl font-black tracking-[2px] cursor-pointer">
+                            Movie<span className="text-red-500">Max</span>
+                        </h2>
+                    </Link>
 
                     <p className="mt-3 text-xs leading-6 text-gray-400 md:text-sm">
                         Discover trending movies, explore new genres,
@@ -26,7 +35,7 @@ function Footer() {
                         Quick Links
                     </h3>
 
-                    <div className="flex flex-col gap-3 text-gray-400">
+                    <div className="flex flex-col gap-3 text-gray-400 items-center md:items-start">
                         <Link
                             to="/"
                             className="transition hover:text-red-500"
@@ -41,13 +50,19 @@ function Footer() {
                             My List
                         </Link>
 
-                        <button className="transition hover:text-red-500">
+                        <Link
+                            to="/"
+                            className="transition hover:text-red-500"
+                        >
                             Trending
-                        </button>
+                        </Link>
 
-                        <button className="transition hover:text-red-500">
+                        <Link
+                            to="/"
+                            className="transition hover:text-red-500"
+                        >
                             Popular
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
@@ -81,21 +96,35 @@ function Footer() {
                     </h3>
 
                     <div className="flex justify-center gap-3 md:justify-start">
-                        <button className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xl transition hover:scale-110 hover:border-red-500 hover:text-red-500">
-                            📷
-                        </button>
 
-                        <button className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xl transition hover:scale-110 hover:border-red-500 hover:text-red-500">
-                            🐦
-                        </button>
+                        <a
+                            href="https://instagram.com/rishi_solanki_16"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500"
+                        >
+                            <FaInstagram />
+                        </a>
 
-                        <button className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xl transition hover:scale-110 hover:border-red-500 hover:text-red-500">
-                            ▶️
-                        </button>
+                        <a
+                            href="https://www.youtube.com/"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500"
+                        >
+                            <FaYoutube />
+                        </a>
 
-                        <button className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xl transition hover:scale-110 hover:border-red-500 hover:text-red-500">
-                            🎬
-                        </button>
+                        <a
+                            href="https://www.facebook.com/"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500"
+                        >
+                            <FaFacebookF />
+                        </a>
+
+                        <a
+                            href="https://www.x.com/"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500"
+                        >
+                            <FaXTwitter />
+                        </a>
+
                     </div>
                 </div>
             </div>

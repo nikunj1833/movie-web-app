@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { auth } from "../firebase";
+import AuthModal from "../components/AuthModal";
 
 const MovieDetails = () => {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
     const [isSaved, setIsSaved] = useState(false);
     const [showTrailer, setShowTrailer] = useState(false);
+    const [showAuth, setShowAuth] = useState(false);
 
     const API_KEY = "1a084661";
 
@@ -30,6 +33,10 @@ const MovieDetails = () => {
     }, [id]);
 
     const handleMyList = () => {
+        if (!auth.currentUser) {
+            setShowAuth(true);
+            return;
+        }
         const savedMovies = JSON.parse(localStorage.getItem("myList")) || [];
 
         if (isSaved) {
@@ -248,6 +255,9 @@ const MovieDetails = () => {
                         </a>
                     </div>
                 </div>
+            )}
+            {showAuth && (
+                <AuthModal setShowAuth={setShowAuth} />
             )}
         </section>
     );

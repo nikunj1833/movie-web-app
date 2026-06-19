@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import MovieGrid from "./components/MovieGrid";
@@ -8,6 +8,8 @@ import MoodPicker from "./components/MoodPicker";
 import MovieDetails from "./pages/MovieDetails";
 import MyList from "./pages/MyList";
 import Footer from "./components/Footer";
+import Loader from "./components/Loader";
+
 function Home() {
     const [search, setSearch] = useState("");
 
@@ -26,14 +28,27 @@ function Home() {
                     </>
                 )}
             </div>
+
             <Footer />
-
-
         </div>
     );
 }
 
 function App() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2500);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
+
     return (
         <Routes>
             <Route path="/" element={<Home />} />

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { auth } from "../firebase";
 import AuthModal from "./AuthModal";
-import { onAuthStateChanged, signOut } from "firebase/auth"; // ✅ FIXED
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const Navbar = ({ setSearch }) => {
     const [input, setInput] = useState("");
@@ -100,7 +100,7 @@ const Navbar = ({ setSearch }) => {
                             </motion.button>
                         ))}
 
-                       
+
                     </nav>
 
                     <div className="flex items-center gap-3">
@@ -178,11 +178,12 @@ const Navbar = ({ setSearch }) => {
                                         ? setShowProfile(!showProfile)
                                         : setShowAuth(true)
                                 }
-                                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-sm font-bold backdrop-blur-md"
+                                className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white"
                             >
                                 {currentUser
-                                    ? currentUser.displayName?.charAt(0).toUpperCase() ||
-                                    currentUser.email?.charAt(0).toUpperCase()
+                                    ? (currentUser.displayName || currentUser.email)
+                                        ?.charAt(0)
+                                        .toUpperCase()
                                     : "👤"}
                             </motion.button>
 
