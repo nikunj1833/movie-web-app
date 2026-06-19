@@ -225,11 +225,38 @@ const Navbar = ({ setSearch }) => {
 
             {mobileMenu && (
                 <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="fixed left-0 top-[80px] z-40 w-full bg-black/70 p-6 text-white backdrop-blur-xl md:hidden"
+                    initial={{ x: "-100%" }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="
+fixed
+left-0
+top-0
+z-50
+h-screen
+w-[280px]
+bg-black
+border-r
+border-white/10
+p-6
+text-white
+shadow-2xl
+md:hidden
+"
                 >
                     <div className="mx-auto flex max-w-sm flex-col gap-5">
+                        <div className="mb-8 flex items-center justify-between">
+                            <h2 className="text-2xl font-black text-red-500">
+                                MOVIEMAX
+                            </h2>
+
+                            <button
+                                onClick={() => setMobileMenu(false)}
+                                className="text-3xl"
+                            >
+                                ✕
+                            </button>
+                        </div>
                         {["Drama", "Action", "Comedy", "Horror", "Sci-Fi"].map((item) => (
                             <button
                                 key={item}
