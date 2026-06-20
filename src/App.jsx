@@ -10,32 +10,68 @@ import MyList from "./pages/MyList";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 
-function Home() {
+
+function Home({
+    darkMode,
+    setDarkMode
+}) {
     const [search, setSearch] = useState("");
 
+
+
     return (
-        <div className="relative min-h-screen bg-black flex flex-col">
-            <Navbar setSearch={setSearch} />
+        <div
+            className={`relative min-h-screen flex flex-col transition-all duration-500 ${darkMode
+                ? "bg-black text-white"
+                : "bg-white text-black"
+                }`}
+        >
+            <Navbar
+                setSearch={setSearch}
+                darkMode={darkMode}
+                setDarkMode={setDarkMode}
+            />
 
             <div className="flex-grow">
                 {search ? (
-                    <MovieGrid search={search} />
+                    <MovieGrid
+                        search={search}
+                        darkMode={darkMode}
+                    />
                 ) : (
                     <>
-                        <HeroSection setSearch={setSearch} />
-                        <MoodPicker />
-                        <TrendingRows />
+                        <HeroSection
+                            setSearch={setSearch}
+                            darkMode={darkMode}
+                        />
+
+                        <MoodPicker darkMode={darkMode} />
+
+                        <TrendingRows darkMode={darkMode} />
                     </>
                 )}
             </div>
 
-            <Footer />
+            <Footer darkMode={darkMode} />
         </div>
     );
 }
 
 function App() {
     const [loading, setLoading] = useState(true);
+    const [darkMode, setDarkMode] = useState(() => {
+        return localStorage.getItem("theme") !== "light";
+    });
+
+
+    useEffect(() => {
+        localStorage.setItem(
+            "theme",
+            darkMode ? "dark" : "light"
+        );
+    }, [darkMode]);
+
+
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -51,9 +87,23 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/my-list" element={<MyList />} />
-            <Route path="/movie/:id" element={<MovieDetails />} />
+            <Route
+                path="/"
+                element={
+                    <Home
+                        darkMode={darkMode}
+                        setDarkMode={setDarkMode}
+                    />
+                }
+            />
+            <Route
+                path="/my-list"
+                element={<MyList darkMode={darkMode} />}
+            />
+            <Route
+                path="/movie/:id"
+                element={<MovieDetails darkMode={darkMode} />}
+            />
         </Routes>
     );
 }

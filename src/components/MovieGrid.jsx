@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { auth } from "../firebase";
 import AuthModal from "./AuthModal";
 
-const MovieGrid = ({ search }) => {
+const MovieGrid = ({ search, darkMode }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
@@ -89,7 +89,12 @@ const MovieGrid = ({ search }) => {
     return favorites.some((item) => item.imdbID === id);
   };
 
-  return (<section className="min-h-screen bg-gradient-to-b from-black via-zinc-950 to-black px-4 pt-24 text-white sm:px-6 md:px-10 lg:px-20">
+  return (<section
+    className={`min-h-screen px-4 pt-24 transition-all duration-500 sm:px-6 md:px-10 lg:px-20 ${darkMode
+      ? "bg-gradient-to-b from-black via-zinc-950 to-black text-white"
+      : "bg-gradient-to-b from-white via-zinc-100 to-white text-black"
+      }`}
+  >
     <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
       <motion.h1
@@ -99,14 +104,17 @@ const MovieGrid = ({ search }) => {
         className="text-2xl font-bold sm:text-3xl"
       >
         Results for:
-        <span className="ml-2 text-red-500500">
+        <span className="ml-2 text-red-500">
           {search}
         </span>
       </motion.h1>
 
       <button
         onClick={() => window.location.reload()}
-        className="rounded-full border border-red-500500/30 px-5 py-2 font-semibold text-red-500400 transition-all hover:bg-red-500600 hover:text-white"
+        className={`rounded-full px-5 py-2 font-semibold transition-all ${darkMode
+            ? "border border-red-500/30 text-red-400 hover:bg-red-600 hover:text-white"
+            : "border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+          }`}
       >
         ← Back Home
       </button>
@@ -129,7 +137,8 @@ const MovieGrid = ({ search }) => {
         {[...Array(12)].map((_, index) => (
           <div
             key={index}
-            className="overflow-hidden rounded-2xl bg-zinc-900"
+            className={`overflow-hidden rounded-2xl ${darkMode ? "bg-zinc-900" : "bg-white shadow-md"
+              }`}
           >
             <div className="relative h-[240px] overflow-hidden rounded-2xl bg-zinc-800 sm:h-[280px] md:h-[320px]">
 
@@ -193,15 +202,20 @@ const MovieGrid = ({ search }) => {
           >
             <Link
               to={`/movie/${movie.imdbID}`}
-              className="group relative block overflow-hidden rounded-2xl bg-zinc-900 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-red-500500/40"
+              className={`group relative block overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2 ${darkMode
+                ? "bg-zinc-900"
+                : "bg-white border border-zinc-200"
+                }`}
             >
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   toggleFavorite(movie);
                 }}
-                className="absolute right-2 top-2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg backdrop-blur-md transition hover:scale-110"
-              >
+                className={`absolute right-2 top-2 z-20 flex h-9 w-9 items-center justify-center rounded-full text-lg backdrop-blur-md transition hover:scale-110 ${darkMode
+                  ? "bg-black/60"
+                  : "bg-white/80 border border-zinc-200"
+                  }`}              >
                 {isFavorite(movie.imdbID) ? "❤️" : "🤍"}
               </button>
 
@@ -226,7 +240,10 @@ const MovieGrid = ({ search }) => {
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-100">
                 <div className="absolute bottom-0 w-full p-3">
-                  <h2 className="line-clamp-2 text-xs font-bold sm:text-sm">
+                  <h2
+                    className={`line-clamp-2 text-xs font-bold sm:text-sm ${darkMode ? "text-white" : "text-black"
+                      }`}
+                  >
                     {movie.Title}
                   </h2>
 
@@ -240,7 +257,10 @@ const MovieGrid = ({ search }) => {
                     </span>
                   </div>
 
-                  <p className="mt-2 text-[10px] text-gray-300 sm:text-xs">
+                  <p
+                    className={`mt-2 text-[10px] sm:text-xs ${darkMode ? "text-gray-300" : "text-gray-700"
+                      }`}
+                  >
                     Click card for details
                   </p>
                 </div>

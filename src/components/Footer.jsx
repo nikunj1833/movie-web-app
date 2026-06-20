@@ -7,8 +7,14 @@ import {
 
 import { FaXTwitter } from "react-icons/fa6";
 
-function Footer() {
-    return (<footer className="relative mt-16 overflow-hidden border-t border-white/10 bg-black text-white">
+function Footer({ darkMode }) {
+    return (<footer
+        className={`relative mt-16 overflow-hidden border-t transition-all duration-500
+  ${darkMode
+                ? "border-white/10 bg-black text-white"
+                : "border-zinc-300 bg-white text-black"
+            }`}
+    >
 
 
         <div className="absolute left-0 top-0 h-[2px] w-full bg-gradient-to-r from-transparent via-red-500 to-transparent" />
@@ -24,7 +30,10 @@ function Footer() {
                         </h2>
                     </Link>
 
-                    <p className="mt-3 text-xs leading-6 text-gray-400 md:text-sm">
+                    <p
+                        className={`mt-3 text-xs leading-6 md:text-sm ${darkMode ? "text-gray-400" : "text-zinc-600"
+                            }`}
+                    >
                         Discover trending movies, explore new genres,
                         and build your personal watchlist.
                     </p>
@@ -71,7 +80,10 @@ function Footer() {
                         Categories
                     </h3>
 
-                    <div className="flex flex-col gap-2 text-gray-400">
+                    <div
+                        className={`flex flex-col gap-2 ${darkMode ? "text-gray-400" : "text-zinc-600"
+                            }`}
+                    >
                         <span className="cursor-pointer transition hover:text-red-500">
                             Action
                         </span>
@@ -99,28 +111,44 @@ function Footer() {
 
                         <a
                             href="https://instagram.com/rishi_solanki_16"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500"
+                            className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500
+${darkMode
+                                    ? "border-white/10 bg-white/5"
+                                    : "border-zinc-300 bg-zinc-100"
+                                }`}
                         >
                             <FaInstagram />
                         </a>
 
                         <a
                             href="https://www.youtube.com/"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500"
+                            className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500
+${darkMode
+                                    ? "border-white/10 bg-white/5"
+                                    : "border-zinc-300 bg-zinc-100"
+                                }`}
                         >
                             <FaYoutube />
                         </a>
 
                         <a
                             href="https://www.facebook.com/"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500"
+                            className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500
+${darkMode
+                                    ? "border-white/10 bg-white/5"
+                                    : "border-zinc-300 bg-zinc-100"
+                                }`}
                         >
                             <FaFacebookF />
                         </a>
 
                         <a
                             href="https://www.x.com/"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500"
+                            className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110 hover:border-red-500 hover:text-red-500
+${darkMode
+                                    ? "border-white/10 bg-white/5"
+                                    : "border-zinc-300 bg-zinc-100"
+                                }`}
                         >
                             <FaXTwitter />
                         </a>
@@ -129,13 +157,19 @@ function Footer() {
                 </div>
             </div>
 
-            <div className="mt-14 grid grid-cols-1 gap-6 border-t border-white/10 pt-10 text-center sm:grid-cols-3">
+            <div
+                className={`mt-14 grid grid-cols-1 gap-6 border-t pt-10 text-center sm:grid-cols-3 ${darkMode ? "border-white/10" : "border-zinc-300"
+                    }`}
+            >
 
                 <div>
                     <h3 className="text-2xl font-bold text-red-500">
                         50K+
                     </h3>
-                    <p className="text-sm text-gray-500">
+                    <p
+                        className={`text-sm ${darkMode ? "text-gray-500" : "text-zinc-600"
+                            }`}
+                    >
                         Movies
                     </p>
                 </div>
@@ -144,7 +178,10 @@ function Footer() {
                     <h3 className="text-2xl font-bold text-red-500">
                         10K+
                     </h3>
-                    <p className="text-sm text-gray-500">
+                    <p
+                        className={`text-sm ${darkMode ? "text-gray-500" : "text-zinc-600"
+                            }`}
+                    >
                         Users
                     </p>
                 </div>
@@ -153,14 +190,22 @@ function Footer() {
                     <h3 className="text-2xl font-bold text-red-500">
                         25+
                     </h3>
-                    <p className="text-sm text-gray-500">
+                    <p
+                        className={`text-sm ${darkMode ? "text-gray-500" : "text-zinc-600"
+                            }`}
+                    >
                         Genres
                     </p>
                 </div>
 
             </div>
 
-            <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-zinc-500">
+            <div
+                className={`mt-10 border-t pt-6 text-center text-sm ${darkMode
+                        ? "border-white/10 text-zinc-500"
+                        : "border-zinc-300 text-zinc-600"
+                    }`}
+            >
                 © 2026 MovieMax. Built with ❤️ for movie lovers.
             </div>
 

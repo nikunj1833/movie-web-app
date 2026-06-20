@@ -37,7 +37,7 @@ const heroMovies = [
 
 const genres = ["Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance"];
 
-const HeroSection = ({ setSearch }) => {
+const HeroSection = ({ setSearch, darkMode }) => {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -49,7 +49,12 @@ const HeroSection = ({ setSearch }) => {
   }, []);
 
   return (
-    <section className="relative h-[85vh] w-full overflow-hidden bg-black text-white">
+    <section
+      className={`relative h-[85vh] w-full overflow-hidden transition-all duration-700 ${darkMode
+        ? "bg-black text-white"
+        : "bg-zinc-100 text-black"
+        }`}
+    >
       {heroMovies.map((movie, index) => (
         <motion.div
           key={movie.title}
@@ -125,7 +130,11 @@ const HeroSection = ({ setSearch }) => {
               <motion.button
                 whileHover={{ scale: 1.07 }}
                 whileTap={{ scale: 0.95 }}
-                className="rounded-full bg-white px-7 py-3 text-sm font-bold text-black"
+                className={`rounded-full px-7 py-3 text-sm font-bold
+${darkMode
+                    ? "bg-white text-black"
+                    : "bg-black text-white"
+                  }`}
               >
                 ▶ PLAY
               </motion.button>
@@ -133,7 +142,11 @@ const HeroSection = ({ setSearch }) => {
               <motion.button
                 whileHover={{ scale: 1.07 }}
                 whileTap={{ scale: 0.95 }}
-                className="rounded-full border border-white/70 px-7 py-3 text-sm font-bold text-white transition hover:bg-white hover:text-black"
+                className={`rounded-full px-7 py-3 text-sm font-bold transition
+${darkMode
+                    ? "border border-white/70 text-white hover:bg-white hover:text-black"
+                    : "border border-black text-black hover:bg-black hover:text-white"
+                  }`}
               >
                 MORE INFO
               </motion.button>
@@ -149,9 +162,8 @@ const HeroSection = ({ setSearch }) => {
                 <button
                   key={index}
                   onClick={() => setActive(index)}
-                  className={`h-2 rounded-full transition-all duration-500 ${
-                    active === index ? "w-9 bg-white" : "w-2 bg-white/40"
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-500 ${active === index ? "w-9 bg-white" : "w-2 bg-white/40"
+                    }`}
                 ></button>
               ))}
             </motion.div>
@@ -168,7 +180,11 @@ const HeroSection = ({ setSearch }) => {
                   whileHover={{ scale: 1.08, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setSearch(genre.toLowerCase())}
-                  className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white hover:text-black"
+                  className={`rounded-full px-4 py-2 text-sm font-semibold backdrop-blur-md transition
+${darkMode
+                      ? "border border-white/20 bg-white/10 text-white hover:bg-white hover:text-black"
+                      : "border border-zinc-300 bg-white text-black hover:bg-black hover:text-white"
+                    }`}
                 >
                   {genre}
                 </motion.button>

@@ -11,7 +11,7 @@ const moods = [
   { emoji: "⚡", name: "Action", query: "action" },
 ];
 
-const MoodPicker = () => {
+const MoodPicker = ({ darkMode }) => {
   const [movies, setMovies] = useState([]);
   const [activeMood, setActiveMood] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,10 +36,23 @@ const MoodPicker = () => {
   };
 
   return (
-    <section className="bg-black px-8 py-12 text-white md:px-20">
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+    <section
+      className={`transition-all duration-500 ${darkMode
+        ? "bg-black text-white"
+        : "bg-white text-black"
+        }`}
+    >
+      <div
+        className={`rounded-3xl p-6 backdrop-blur-xl transition-all duration-500 ${darkMode
+          ? "border border-white/10 bg-white/5"
+          : "border border-zinc-200 bg-zinc-50 shadow-md"
+          }`}
+      >
         <h2 className="mb-2 text-3xl font-black">🎭 What's your mood today?</h2>
-        <p className="mb-6 text-gray-400">
+        <p
+          className={`mb-6 ${darkMode ? "text-gray-400" : "text-gray-600"
+            }`}
+        >
           Pick your mood and get movie recommendations.
         </p>
 
@@ -48,11 +61,12 @@ const MoodPicker = () => {
             <button
               key={mood.name}
               onClick={() => handleMood(mood)}
-              className={`rounded-full px-5 py-3 font-bold transition hover:scale-105 ${
-                activeMood === mood.name
-                  ? "bg-red-500600 text-white"
-                  : "bg-white/10 text-white hover:bg-white hover:text-black"
-              }`}
+              className={`rounded-full px-5 py-3 font-bold transition hover:scale-105 ${activeMood === mood.name
+                ? "bg-red-500 text-white"
+                : darkMode
+                  ? "bg-white/10 text-white hover:bg-white hover:text-black"
+                  : "bg-zinc-200 text-black hover:bg-black hover:text-white"
+                }`}
             >
               {mood.emoji} {mood.name}
             </button>
@@ -64,7 +78,7 @@ const MoodPicker = () => {
         {activeMood && !loading && (
           <h3 className="mb-5 text-xl font-bold">
             Recommended for{" "}
-            <span className="text-red-500400">{activeMood}</span>
+            <span className="text-red-500">{activeMood}</span>
           </h3>
         )}
 
@@ -73,7 +87,10 @@ const MoodPicker = () => {
             <Link
               to={`/movie/${movie.imdbID}`}
               key={movie.imdbID}
-              className="group min-w-[150px] overflow-hidden rounded-xl bg-zinc-900 transition hover:-translate-y-2"
+              className={`group min-w-[150px] overflow-hidden rounded-xl transition hover:-translate-y-2 ${darkMode
+                ? "bg-zinc-900"
+                : "bg-white border border-zinc-200 shadow-md"
+                }`}
             >
               <img
                 src={
@@ -86,10 +103,16 @@ const MoodPicker = () => {
               />
 
               <div className="p-3">
-                <h4 className="line-clamp-2 text-sm font-bold">
+                <h4
+                  className={`line-clamp-2 text-sm font-bold ${darkMode ? "text-white" : "text-black"
+                    }`}
+                >
                   {movie.Title}
                 </h4>
-                <p className="mt-1 text-xs text-gray-400">{movie.Year}</p>
+                <p
+                  className={`mt-1 text-xs ${darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
+                >{movie.Year}</p>
               </div>
             </Link>
           ))}

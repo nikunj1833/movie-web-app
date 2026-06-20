@@ -10,7 +10,7 @@ const categories = [
   { title: "👻 Horror", query: "horror" },
 ];
 
-const TrendingRows = () => {
+const TrendingRows = ({ darkMode }) => {
   const [rows, setRows] = useState({});
 
   useEffect(() => {
@@ -38,7 +38,12 @@ const TrendingRows = () => {
   }, []);
 
   return (
-    <section className="bg-black px-8 py-12 text-white md:px-20">
+    <section
+      className={`px-8 py-12 transition-all duration-500 md:px-20 ${darkMode
+        ? "bg-black text-white"
+        : "bg-white text-black"
+        }`}
+    >
       {categories.map((category) => (
         <div key={category.title} className="mb-10">
           <h2 className="mb-4 text-2xl font-bold">{category.title}</h2>
@@ -48,7 +53,10 @@ const TrendingRows = () => {
               <Link
                 to={`/movie/${movie.imdbID}`}
                 key={movie.imdbID}
-                className="group min-w-[160px] overflow-hidden rounded-xl bg-zinc-900 transition hover:-translate-y-2"
+                className={`group min-w-[160px] overflow-hidden rounded-xl transition hover:-translate-y-2 ${darkMode
+                  ? "bg-zinc-900"
+                  : "bg-white border border-zinc-200 shadow-md"
+                  }`}
               >
                 <img
                   src={
@@ -61,10 +69,16 @@ const TrendingRows = () => {
                 />
 
                 <div className="p-3">
-                  <h3 className="line-clamp-2 text-sm font-bold">
+                  <h3
+                    className={`line-clamp-2 text-sm font-bold ${darkMode ? "text-white" : "text-black"
+                      }`}
+                  >
                     {movie.Title}
                   </h3>
-                  <p className="mt-1 text-xs text-gray-400">{movie.Year}</p>
+                  <p
+                    className={`mt-1 text-xs ${darkMode ? "text-gray-400" : "text-gray-600"
+                      }`}
+                  >{movie.Year}</p>
                 </div>
               </Link>
             ))}

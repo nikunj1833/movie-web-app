@@ -5,7 +5,11 @@ import { auth } from "../firebase";
 import AuthModal from "./AuthModal";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
-const Navbar = ({ setSearch }) => {
+const Navbar = ({
+    setSearch,
+    darkMode,
+    setDarkMode,
+}) => {
     const [input, setInput] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [showAuth, setShowAuth] = useState(false);
@@ -59,7 +63,10 @@ const Navbar = ({ setSearch }) => {
                 initial={{ y: -80, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                className="fixed left-0 top-0 z-50 w-full px-4 py-4 text-white backdrop-blur-lg md:px-8"
+                className={`fixed left-0 top-0 z-50 w-full px-4 py-4 backdrop-blur-lg md:px-8 ${darkMode
+                    ? "text-white bg-black/30"
+                    : "text-black bg-white/70"
+                    }`}
             >
                 <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 md:gap-8">
                     <div className="flex items-center gap-4">
@@ -107,7 +114,10 @@ const Navbar = ({ setSearch }) => {
                         <div className="relative">
                             <motion.div
                                 whileHover={{ scale: 1.02 }}
-                                className="flex items-center rounded-full bg-white/20 p-1 backdrop-blur-md"
+                                className={`flex items-center rounded-full p-1 backdrop-blur-md ${darkMode
+                                    ? "bg-white/20"
+                                    : "bg-black/10"
+                                    }`}
                             >
                                 <input
                                     type="text"
@@ -115,7 +125,10 @@ const Navbar = ({ setSearch }) => {
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                                    className="w-20 sm:w-32 md:w-56 bg-transparent px-2 py-2 text-xs sm:text-sm text-white placeholder:text-white/70 outline-none"
+                                    className={`w-20 sm:w-32 md:w-56 bg-transparent px-2 py-2 text-xs sm:text-sm outline-none ${darkMode
+                                        ? "text-white placeholder:text-white/70"
+                                        : "text-black placeholder:text-black/50"
+                                        }`}
                                 />
 
                                 <motion.button
@@ -164,10 +177,18 @@ const Navbar = ({ setSearch }) => {
                                                 </p>
                                             </div>
                                         </button>
+
+
                                     ))}
                                 </motion.div>
                             )}
                         </div>
+                        <button
+                            onClick={() => setDarkMode(!darkMode)}
+                            className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500 text-white"
+                        >
+                            {darkMode ? "☀️" : "🌙"}
+                        </button>
 
                         <div className="relative">
                             <motion.button
@@ -178,7 +199,10 @@ const Navbar = ({ setSearch }) => {
                                         ? setShowProfile(!showProfile)
                                         : setShowAuth(true)
                                 }
-                                className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white"
+                                className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white ${darkMode
+                                        ? "bg-blue-600"
+                                        : "bg-blue-500"
+                                    }`}
                             >
                                 {currentUser
                                     ? (currentUser.displayName || currentUser.email)
