@@ -9,6 +9,7 @@ import MovieDetails from "./pages/MovieDetails";
 import MyList from "./pages/MyList";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
+import TMDBMovieDetails from "./pages/TMDBMovieDetails";
 
 
 function Home({
@@ -103,6 +104,10 @@ function App() {
             <Route
                 path="/movie/:id"
                 element={<MovieDetails darkMode={darkMode} />}
+            />
+            <Route
+                path="/tmdb-movie/:id"
+                element={<TMDBMovieDetails darkMode={darkMode} />}
             />
         </Routes>
     );

@@ -248,7 +248,7 @@ const MovieGrid = ({ search, darkMode }) => {
                   </h2>
 
                   <div className="mt-2 flex flex-wrap gap-2">
-                    <span className="rounded-full bg-red-500600 px-2 py-1 text-[10px] font-semibold">
+                    <span className="rounded-full text-red-600 px-2 py-1 text-[10px] font-semibold">
                       {movie.Year}
                     </span>
 

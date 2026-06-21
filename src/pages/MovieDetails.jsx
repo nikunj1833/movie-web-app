@@ -7,7 +7,6 @@ const MovieDetails = ({ darkMode }) => {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
     const [isSaved, setIsSaved] = useState(false);
-    const [showTrailer, setShowTrailer] = useState(false);
     const [showAuth, setShowAuth] = useState(false);
 
     const API_KEY = "1a084661";
@@ -62,6 +61,15 @@ const MovieDetails = ({ darkMode }) => {
 
             setIsSaved(true);
         }
+    };
+
+    const handleTrailer = () => {
+        const query = `${movie.Title} official trailer`;
+
+        window.open(
+            `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`,
+            "_blank"
+        );
     };
 
     if (!movie) {
@@ -299,7 +307,7 @@ const MovieDetails = ({ darkMode }) => {
 
                         <div className="flex flex-wrap gap-4">
                             <button
-                                onClick={() => setShowTrailer(true)}
+                                onClick={handleTrailer}
                                 className="rounded-full bg-red-600 px-8 py-3 font-bold text-white transition hover:scale-105 hover:bg-red-700"
                             >
                                 ▶ Watch Trailer
@@ -308,7 +316,7 @@ const MovieDetails = ({ darkMode }) => {
                             <button
                                 onClick={handleMyList}
                                 className={`rounded-full px-8 py-3 font-bold transition ${isSaved
-                                    ? "bg-red-500600 text-white hover:bg-red-500700"
+                                    ? "text-red-600 text-white hover:text-red-700"
                                     : darkMode
                                         ? "border border-white/40 text-white backdrop-blur-md hover:bg-white hover:text-black"
                                         : "border border-black/20 text-black bg-white/60 hover:bg-black hover:text-white"
@@ -321,54 +329,7 @@ const MovieDetails = ({ darkMode }) => {
                 </div>
             </div>
 
-            {showTrailer && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-5 backdrop-blur-md">
-                    <div
-                        className={`relative w-full max-w-2xl rounded-3xl p-6 shadow-2xl transition-all duration-500 ${darkMode
-                            ? "border border-white/10 bg-zinc-950 text-white shadow-red-500/20"
-                            : "border border-zinc-200 bg-white text-black shadow-xl"
-                            }`}
-                    >
-                        <button
-                            onClick={() => setShowTrailer(false)}
-                            className={`absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-xl transition ${darkMode
-                                ? "bg-white/10 hover:bg-white hover:text-black"
-                                : "bg-black/10 hover:bg-black hover:text-white"
-                                }`}
-                        >
-                            ×
-                        </button>
 
-                        <div className="mb-5">
-                            <h2 className="text-3xl font-black">▶ {movie.Title} Trailer</h2>
-                            <p className="mt-2 text-sm text-gray-400">
-                                Open the official trailer search on YouTube.
-                            </p>
-                        </div>
-
-                        <div
-                            className={`mb-6 flex h-64 items-center justify-center rounded-2xl ${darkMode
-                                ? "border border-white/10 bg-gradient-to-br from-red-600/30 via-black to-red-700/30"
-                                : "border border-zinc-200 bg-gradient-to-br from-red-100 via-white to-red-200"
-                                }`}
-                        >
-                            <div className="text-center">
-                                <div className="mb-4 text-6xl">▶</div>
-                                <p className={darkMode ? "text-gray-300" : "text-gray-700"}>Trailer preview modal</p>
-                            </div>
-                        </div>
-
-                        <a
-                            href={`https://www.youtube.com/results?search_query=${movie.Title}+official+trailer`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="block rounded-full bg-red-600 px-8 py-3 text-center font-bold text-white transition hover:bg-red-700"
-                        >
-                            Open Trailer on YouTube
-                        </a>
-                    </div>
-                </div>
-            )}
             {showAuth && (
                 <AuthModal setShowAuth={setShowAuth} />
             )}
